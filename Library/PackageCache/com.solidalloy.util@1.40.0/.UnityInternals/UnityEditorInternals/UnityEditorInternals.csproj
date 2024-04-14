@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.8" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">Unity2020</Platform>
+        <ProjectGuid>{94677F00-FD8E-4E12-BC4F-91BF3371C309}</ProjectGuid>
+        <OutputType>Library</OutputType>
+        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <RootNamespace>SolidUtilities.UnityEditorInternals</RootNamespace>
+        <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+        <FileAlignment>512</FileAlignment>
+        <_OutputCopyLocation>..\..\</_OutputCopyLocation>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DebugType>pdbonly</DebugType>
+      <Optimize>true</Optimize>
+      <DefineConstants>TRACE</DefineConstants>
+      <ErrorReport>prompt</ErrorReport>
+      <WarningLevel>4</WarningLevel>
+      <AssemblyName>UnityEditorInternals</AssemblyName>
+      <PlatformTarget>AnyCPU</PlatformTarget>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DebugSymbols>true</DebugSymbols>
+      <DebugType>full</DebugType>
+      <Optimize>false</Optimize>
+      <DefineConstants>DEBUG;TRACE</DefineConstants>
+      <ErrorReport>prompt</ErrorReport>
+      <WarningLevel>4</WarningLevel>
+      <AssemblyName>Unity.InternalAPIEditorBridgeDev.001</AssemblyName>
+      <PlatformTarget>AnyCPU</PlatformTarget>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Platform)' == 'Unity2019' ">
+        <_Suffix>2019</_Suffix>
+        <DefineConstants>UNITY_2019</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Platform)' == 'Unity2020' ">
+        <_Suffix></_Suffix>
+        <DefineConstants>UNITY_2020</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Unity2019' ">
+      <OutputPath>bin\Unity2019\Debug\</OutputPath>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Unity2019' ">
+      <OutputPath>bin\Unity2019\Release\</OutputPath>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Unity2020' ">
+        <OutputPath>bin\Unity2020\Debug\</OutputPath>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Unity2020' ">
+        <OutputPath>bin\Unity2020\Release\</OutputPath>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="System" />
+        <Reference Include="System.Core" />
+        <Reference Include="System.Xml" />
+        <Reference Include="UnityEngine.CoreModule">
+          <HintPath>C:\Program Files\Unity Editors\2021.1.9f1\Editor\Data\Managed\UnityEngine\UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.IMGUIModule">
+          <HintPath>C:\Program Files\Unity Editors\2021.1.9f1\Editor\Data\Managed\UnityEngine\UnityEngine.IMGUIModule.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+    <ItemGroup Condition=" '$(Platform)' == 'Unity2020'">
+        <Reference Include="UnityEditor.CoreModule">
+            <HintPath>C:\Program Files\Unity Editors\2021.1.9f1\Editor\Data\Managed\UnityEngine\UnityEditor.CoreModule.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+    <ItemGroup Condition=" '$(Platform)' == 'Unity2019'">
+        <Reference Include="UnityEditor">
+            <HintPath>C:\Program Files\Unity Editors\2019.4.24f1\Editor\Data\Managed\UnityEngine\UnityEditor.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="ConsoleWindowProxy.cs" />
+        <Compile Include="CustomBuildOptions.cs" />
+        <Compile Include="DrawerReplacer.cs" />
+        <Compile Include="EditorGUIHelper.cs" />
+        <Compile Include="EditorGUILayoutHelper.cs" />
+        <Compile Include="EditorGUIUtilityProxy.cs" />
+        <Compile Include="IDelayable.cs" />
+        <Compile Include="LogEntries.cs" />
+        <Compile Include="LogEntry.cs" />
+        <Compile Include="MonoScriptExtensions.cs" />
+        <Compile Include="MonoImporterProxy.cs" />
+        <Compile Include="ProjectWindowUtilProxy.cs" />
+        <Compile Include="PropertyDrawerExtensions.cs" />
+        <Compile Include="SerializedPropertyExtensions.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Properties" />
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="OpenSesame.Net.Compilers.Toolset" Version="3.7.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+    <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+         Other similar extension points exist, see Microsoft.Common.targets.
+    -->
+
+    <Target Name="AfterBuild">
+        <ItemGroup> <_FilesToCopy Include="$(OutputPath)$(AssemblyName).*" /> </ItemGroup>
+        <Copy SourceFiles="@(_FilesToCopy)" DestinationFiles="@(_FilesToCopy->'$(_OutputCopyLocation)%(RecursiveDir)UnityEditorInternals$(_Suffix)%(Extension)')" />
+    </Target>
+
+</Project>
